@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-LmApplication<lm>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "edu.co.unicauca.learnmetrics.lm.LmApplication",
+            "projectName": "lm",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
