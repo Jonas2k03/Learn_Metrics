@@ -1,6 +1,7 @@
 package edu.co.unicauca.learnmetrics.lm.CapaAccesoDatos.Repositorios;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
@@ -14,7 +15,6 @@ public class RubricaRepository {
 
     public RubricaRepository() {
         this.listaRubricas = new ArrayList<RubricaEntity>();
-        // cargarRubricas();
         pos = (long) this.listaRubricas.size() + 1;
     }
 
@@ -55,7 +55,7 @@ public class RubricaRepository {
         RubricaEntity objRubrica = null;
         if (this.listaRubricas.add(rubrica)) {
             objRubrica = rubrica;
-
+            pos++;
         }
         return objRubrica;
     }
@@ -66,8 +66,12 @@ public class RubricaRepository {
 
         for (int i = 0; i < this.listaRubricas.size(); i++) {
             if (this.listaRubricas.get(i).getRubricaId() == id) {
-                this.listaRubricas.set(i, rubrica);
-                objRubrica = rubrica;
+                objRubrica = this.listaRubricas.get(i);
+                objRubrica.setRubricaNombre(rubrica.getRubricaNombre());
+                objRubrica.setCriterios(rubrica.getCriterios());
+                objRubrica.setFechaModificacion(new Date());
+                objRubrica.setRubricaEstado(rubrica.isRubricaEstado());
+                this.listaRubricas.set(i, objRubrica);
                 break;
             }
         }

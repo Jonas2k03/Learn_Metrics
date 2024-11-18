@@ -39,7 +39,7 @@ public class RubricaServiceImpl implements IRubricaService {
     public RubricaDTO findById(Long id) {
         RubricaEntity objRubricaEntity = this.servicioAccesoBaseDatos.findById(id);
         if (objRubricaEntity == null) {
-            throw new EntidadNoExisteException("Error, la rúbrica no existe");
+            throw new EntidadNoExisteException("Error, la rubrica no existe");
         }
         return this.modelMapper.map(objRubricaEntity, RubricaDTO.class);
     }
@@ -48,7 +48,7 @@ public class RubricaServiceImpl implements IRubricaService {
     public RubricaDTO save(RubricaDTO rubrica) {
         RubricaEntity rubricaEntity = this.modelMapper.map(rubrica, RubricaEntity.class);
         rubricaEntity.setFechaCreacion(new Date());
-        rubricaEntity.setFechaModificacion(new Date());
+        rubricaEntity.setFechaModificacion(null);
         RubricaEntity objRubricaEntity = this.servicioAccesoBaseDatos.save(rubricaEntity);
         return this.modelMapper.map(objRubricaEntity, RubricaDTO.class);
     }
@@ -56,7 +56,7 @@ public class RubricaServiceImpl implements IRubricaService {
     @Override
     public RubricaDTO update(Long id, RubricaDTO rubrica) {
         if (!this.servicioAccesoBaseDatos.existeRubrica(id)) {
-            throw new EntidadNoExisteException("Error, la rúbrica a actualizar no existe");
+            throw new EntidadNoExisteException("Error, la rubrica a actualizar no existe");
         }
 
         RubricaEntity rubricaEntity = this.modelMapper.map(rubrica, RubricaEntity.class);
@@ -68,7 +68,7 @@ public class RubricaServiceImpl implements IRubricaService {
     @Override
     public boolean delete(Long id) {
         if (!this.servicioAccesoBaseDatos.existeRubrica(id)) {
-            throw new EntidadNoExisteException("Error, la rúbrica a eliminar no existe");
+            throw new EntidadNoExisteException("Error, la rubrica a eliminar no existe");
         }
         return this.servicioAccesoBaseDatos.delete(id);
     }
