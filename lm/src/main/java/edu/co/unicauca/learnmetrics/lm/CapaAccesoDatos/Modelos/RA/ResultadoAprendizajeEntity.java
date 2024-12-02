@@ -2,6 +2,7 @@ package edu.co.unicauca.learnmetrics.lm.CapaAccesoDatos.Modelos.RA;
 
 import edu.co.unicauca.learnmetrics.lm.CapaAccesoDatos.Modelos.Competencia.CompetenciaEntity;
 import edu.co.unicauca.learnmetrics.lm.CapaAccesoDatos.Modelos.Rubrica.RubricaEntity;
+import edu.co.unicauca.learnmetrics.lm.CapaAccesoDatos.Modelos.TipoRA;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

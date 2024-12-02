@@ -4,9 +4,12 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import edu.co.unicauca.learnmetrics.lm.CapaAccesoDatos.Modelos.Competencia.CompetenciaEntity;
+
 import edu.co.unicauca.learnmetrics.lm.CapaAccesoDatos.Repositorios.CompetenciaRepository;
 import edu.co.unicauca.learnmetrics.lm.FachadaServices.DTO.CompetenciaDTO;
 import edu.co.unicauca.learnmetrics.lm.CapaControladores.controladorExcepciones.excepcionesPropias.*;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import java.util.List;
 import java.util.Optional;
@@ -60,5 +63,6 @@ public class CompetenciaServiceImpl implements iCompetenciaService {
         CompetenciaEntity competenciaEntityUpdate = modelMapper.map(competencia, CompetenciaEntity.class);
         competenciaEntityUpdate = competenciaRepository.save(competenciaEntityUpdate);
         return modelMapper.map(competenciaEntityUpdate, CompetenciaDTO.class);
+
     }
 }

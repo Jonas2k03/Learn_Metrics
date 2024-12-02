@@ -1,17 +1,15 @@
 package edu.co.unicauca.learnmetrics.lm.CapaAccesoDatos.Modelos.Rubrica;
-
 import java.util.ArrayList;
 import java.util.List;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import lombok.Data;
 
-@Entity
-@Table(name = "tbl_nivel")
-@Data
+import lombok.AllArgsConstructor;
+import lombok.Setter;
+import lombok.Getter;
+
 @AllArgsConstructor
-@NoArgsConstructor
+@Getter
+@Setter
 public class NivelCriterioEntity {
 
     @Id
