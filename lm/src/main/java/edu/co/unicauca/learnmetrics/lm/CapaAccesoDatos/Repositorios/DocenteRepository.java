@@ -76,12 +76,7 @@ public class DocenteRepository {
     }
 
     private void cargarDocentes() {
-        DocenteEntity objDocente1 = new DocenteEntity(1, "Cedula", "planta", "javier", "paz", "10023652563",
-                "maestria tecnologica", "javi@unicauca.edu.co");
-        this.listaDeDocentes.add(objDocente1);
-        DocenteEntity objDocente2 = new DocenteEntity(2, "Cedula", "parcial", "juan", "collazos", "10028593",
-                "maestria en matematicas", "juan@unicauca.edu.co");
-        this.listaDeDocentes.add(objDocente2);
+
     }
 
 }

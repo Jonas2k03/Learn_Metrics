@@ -1,154 +1,121 @@
-use lm_bd;
+USE lm_bd;
 
-drop table if exists ASIG_COMP_DOCENTE;
+-- Eliminar tablas si existen
+DROP TABLE IF EXISTS ASIG_COMP_DOCENTE;
+DROP TABLE IF EXISTS RESULTAAP_RUBRICA;
+DROP TABLE IF EXISTS TBL_ASIGNATURA;
+DROP TABLE IF EXISTS TBL_DOCENTE;
+DROP TABLE IF EXISTS TBL_NIVEL;
+DROP TABLE IF EXISTS TBL_CRITERIO;
+DROP TABLE IF EXISTS TBL_RA;
+DROP TABLE IF EXISTS TBL_COMPETENCIA;
+DROP TABLE IF EXISTS TBL_RUBRICA;
 
-drop table if exists RESULTAAP_RUBRICA;
-
-drop table if exists TBL_ASIGNATURA;
-
-drop table if exists TBL_COMPETENCIA;
-
-drop table if exists TBL_CRITERIO;
-
-drop table if exists TBL_DOCENTE;
-
-drop table if exists TBL_NIVEL;
-
-drop table if exists TBL_RA;
-
-drop table if exists TBL_RUBRICA;
-
-/*==============================================================*/
-/* Table: ASIG_COMP_DOCENTE                                     */
-/*==============================================================*/
-create table ASIG_COMP_DOCENTE
-(
-   ASIG_ID              int not null,
-   DOC_ID               int not null,
-   COMP_ID              int not null,
-   PERIODO              varchar(20),
-   primary key (ASIG_ID, DOC_ID, COMP_ID)
+-- Tabla: ASIG_COMP_DOCENTE
+CREATE TABLE ASIG_COMP_DOCENTE (
+   ASIG_ID INT NOT NULL,
+   DOC_ID INT NOT NULL,
+   COMP_ID INT NOT NULL,
+   PERIODO VARCHAR(20),
+   PRIMARY KEY (ASIG_ID, DOC_ID, COMP_ID)
 );
 
-/*==============================================================*/
-/* Table: RESULTAAP_RUBRICA                                     */
-/*==============================================================*/
-create table RESULTAAP_RUBRICA
-(
-   RAP_ID               int not null,
-   IDRUBRICA            char(10) not null,
-   primary key (RAP_ID, IDRUBRICA)
+-- Tabla: RESULTAAP_RUBRICA
+CREATE TABLE RESULTAAP_RUBRICA (
+   RAP_ID INT NOT NULL,
+   IDRUBRICA CHAR(10) NOT NULL,
+   PRIMARY KEY (RAP_ID, IDRUBRICA)
 );
 
-/*==============================================================*/
-/* Table: TBL_ASIGNATURA                                        */
-/*==============================================================*/
-create table TBL_ASIGNATURA
-(
-   ASIG_ID              int not null,
-   ASIG_NOMBRE          varchar(100),
-   ASIG_CREDITOS        int,
-   ASIG_OBJETIVOS       varchar(500),
-   ASIG_SEMESTRE        int,
-   primary key (ASIG_ID)
+-- Tabla: TBL_ASIGNATURA
+CREATE TABLE TBL_ASIGNATURA (
+   ASIG_ID INT NOT NULL,
+   ASIG_NOMBRE VARCHAR(100),
+   ASIG_CREDITOS INT,
+   ASIG_OBJETIVOS VARCHAR(500),
+   ASIG_SEMESTRE INT,
+   PRIMARY KEY (ASIG_ID)
 );
 
-/*==============================================================*/
-/* Table: TBL_COMPETENCIA                                       */
-/*==============================================================*/
-create table TBL_COMPETENCIA
-(
-   COMP_ID              int not null,
-   TBL_COMP_ID          int,
-   COMP_DESCRIPCION     varchar(250),
-   COMP_TIPO            varchar(50),
-   COMP_NIVEL           varchar(50),
-   primary key (COMP_ID)
+-- Tabla: TBL_COMPETENCIA
+CREATE TABLE TBL_COMPETENCIA (
+   COMP_ID INT NOT NULL,
+   TBL_COMP_ID INT,
+   COMP_DESCRIPCION VARCHAR(250),
+   COMP_TIPO VARCHAR(50),
+   COMP_NIVEL VARCHAR(50),
+   PRIMARY KEY (COMP_ID)
 );
 
-/*==============================================================*/
-/* Table: TBL_CRITERIO                                          */
-/*==============================================================*/
-create table TBL_CRITERIO
-(
-   IDCRITERIO           int not null,
-   IDRUBRICA            char(10),
-   CRI_DESCRIPCION      varchar(50),
-   primary key (IDCRITERIO)
+-- Tabla: TBL_CRITERIO
+CREATE TABLE TBL_CRITERIO (
+   IDCRITERIO INT NOT NULL,
+   IDRUBRICA CHAR(10),
+   CRI_DESCRIPCION VARCHAR(50),
+   PRIMARY KEY (IDCRITERIO)
 );
 
-/*==============================================================*/
-/* Table: TBL_DOCENTE                                           */
-/*==============================================================*/
-create table TBL_DOCENTE
-(
-   DOC_ID               int not null,
-   DOC_TIPOIDENTIFICACION varchar(50),
-   DOC_TIPODOCENTE      varchar(50),
-   DOC_NOMBRES          varchar(100),
-   DOC_APELLIDOS        varchar(100),
-   DOC_IDENTIFICACION   varchar(100),
-   DOC_TITULO           varchar(100),
-   primary key (DOC_ID)
+-- Tabla: TBL_DOCENTE
+CREATE TABLE TBL_DOCENTE (
+   DOC_ID INT NOT NULL,
+   DOC_TIPOIDENTIFICACION VARCHAR(50),
+   DOC_TIPODOCENTE VARCHAR(50),
+   DOC_NOMBRES VARCHAR(100),
+   DOC_APELLIDOS VARCHAR(100),
+   DOC_IDENTIFICACION VARCHAR(100),
+   DOC_TITULO VARCHAR(100),
+   PRIMARY KEY (DOC_ID)
 );
 
-/*==============================================================*/
-/* Table: TBL_NIVEL                                             */
-/*==============================================================*/
-create table TBL_NIVEL
-(
-   IDNIVEL              int not null,
-   IDCRITERIO           int,
-   NIVELDESCRIPCION     varchar(50),
-   NIVELRANGONOTA       varchar(50),
-   primary key (IDNIVEL)
+-- Tabla: TBL_NIVEL
+CREATE TABLE TBL_NIVEL (
+   IDNIVEL INT NOT NULL AUTO_INCREMENT,
+   IDCRITERIO INT,
+   NIVELDESCRIPCION VARCHAR(50),
+   NIVELRANGONOTA VARCHAR(50),
+   PRIMARY KEY (IDNIVEL)
 );
 
-/*==============================================================*/
-/* Table: TBL_RA                                                */
-/*==============================================================*/
-create table TBL_RA
-(
-   RAP_ID               int not null,
-   COMP_ID              int not null,
-   RAP_DESCRIPCION      varchar(250),
-   primary key (RAP_ID)
+-- Tabla: TBL_RA
+CREATE TABLE TBL_RA (
+   RAP_ID INT NOT NULL,
+   COMP_ID INT NOT NULL,
+   RAP_DESCRIPCION VARCHAR(250),
+   PRIMARY KEY (RAP_ID)
 );
 
-/*==============================================================*/
-/* Table: TBL_RUBRICA                                           */
-/*==============================================================*/
-create table TBL_RUBRICA
-(
-   IDRUBRICA            char(10) not null,
-   RUB_NOMBRE           char(10),
-   RUB_NOTA             char(10),
-   primary key (IDRUBRICA)
+-- Tabla: TBL_RUBRICA
+CREATE TABLE TBL_RUBRICA (
+   IDRUBRICA CHAR(10) NOT NULL,
+   RUB_NOMBRE CHAR(10),
+   RUB_NOTA CHAR(10),
+   PRIMARY KEY (IDRUBRICA)
 );
 
-alter table ASIG_COMP_DOCENTE add constraint FK_ASIG_COMP_DOCENTE foreign key (ASIG_ID)
-      references TBL_ASIGNATURA (ASIG_ID) on delete restrict on update restrict;
+-- Relaciones entre tablas
+ALTER TABLE ASIG_COMP_DOCENTE ADD CONSTRAINT FK_ASIG_COMP_DOCENTE FOREIGN KEY (ASIG_ID)
+      REFERENCES TBL_ASIGNATURA (ASIG_ID) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
-alter table ASIG_COMP_DOCENTE add constraint FK_ASIG_COMP_DOCENTE2 foreign key (DOC_ID)
-      references TBL_DOCENTE (DOC_ID) on delete restrict on update restrict;
+ALTER TABLE ASIG_COMP_DOCENTE ADD CONSTRAINT FK_ASIG_COMP_DOCENTE2 FOREIGN KEY (DOC_ID)
+      REFERENCES TBL_DOCENTE (DOC_ID) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
-alter table ASIG_COMP_DOCENTE add constraint FK_ASIG_COMP_DOCENTE3 foreign key (COMP_ID)
-      references TBL_COMPETENCIA (COMP_ID) on delete restrict on update restrict;
+ALTER TABLE ASIG_COMP_DOCENTE ADD CONSTRAINT FK_ASIG_COMP_DOCENTE3 FOREIGN KEY (COMP_ID)
+      REFERENCES TBL_COMPETENCIA (COMP_ID) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
-alter table RESULTAAP_RUBRICA add constraint FK_RESULTAAP_RUBRICA foreign key (RAP_ID)
-      references TBL_RA (RAP_ID) on delete restrict on update restrict;
+ALTER TABLE RESULTAAP_RUBRICA ADD CONSTRAINT FK_RESULTAAP_RUBRICA FOREIGN KEY (RAP_ID)
+      REFERENCES TBL_RA (RAP_ID) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
-alter table RESULTAAP_RUBRICA add constraint FK_RESULTAAP_RUBRICA2 foreign key (IDRUBRICA)
-      references TBL_RUBRICA (IDRUBRICA) on delete restrict on update restrict;
+ALTER TABLE RESULTAAP_RUBRICA ADD CONSTRAINT FK_RESULTAAP_RUBRICA2 FOREIGN KEY (IDRUBRICA)
+      REFERENCES TBL_RUBRICA (IDRUBRICA) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
-alter table TBL_COMPETENCIA add constraint FK_FK_COMPETENCIAPROGRAMA foreign key (TBL_COMP_ID)
-      references TBL_COMPETENCIA (COMP_ID) on delete restrict on update restrict;
+ALTER TABLE TBL_COMPETENCIA ADD CONSTRAINT FK_FK_COMPETENCIAPROGRAMA FOREIGN KEY (TBL_COMP_ID)
+      REFERENCES TBL_COMPETENCIA (COMP_ID) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
-alter table TBL_CRITERIO add constraint FK_RELATIONSHIP_3 foreign key (IDRUBRICA)
-      references TBL_RUBRICA (IDRUBRICA) on delete restrict on update restrict;
+ALTER TABLE TBL_CRITERIO ADD CONSTRAINT FK_RELATIONSHIP_3 FOREIGN KEY (IDRUBRICA)
+      REFERENCES TBL_RUBRICA (IDRUBRICA) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
-alter table TBL_NIVEL add constraint FK_RELATIONSHIP_4 foreign key (IDCRITERIO)
-      references TBL_CRITERIO (IDCRITERIO) on delete restrict on update restrict;
+ALTER TABLE TBL_NIVEL ADD CONSTRAINT FK_RELATIONSHIP_4 FOREIGN KEY (IDCRITERIO)
+      REFERENCES TBL_CRITERIO (IDCRITERIO) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
-alter table TBL_RA add constraint FK_COMP_RA_PRO foreign key (COMP_ID)
-      references TBL_COMPETENCIA (COMP_ID) on delete restrict on update restrict;
+ALTER TABLE TBL_RA ADD CONSTRAINT FK_COMP_RA_PRO FOREIGN KEY (COMP_ID)
+      REFERENCES TBL_COMPETENCIA (COMP_ID) ON DELETE RESTRICT ON UPDATE RESTRICT;
