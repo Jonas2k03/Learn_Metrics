@@ -1,7 +1,8 @@
 package edu.co.unicauca.learnmetrics.lm.CapaAccesoDatos.Repositorios;
 
-import edu.co.unicauca.learnmetrics.lm.CapaAccesoDatos.Modelos.Asignatura.AsignaturaEntity;
 import org.springframework.stereotype.Repository;
+
+import edu.co.unicauca.learnmetrics.lm.CapaAccesoDatos.Modelos.AsignaturaEntity;
 
 import java.util.ArrayList;
 

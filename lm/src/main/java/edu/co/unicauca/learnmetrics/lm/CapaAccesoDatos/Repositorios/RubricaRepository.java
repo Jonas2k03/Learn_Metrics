@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
-import edu.co.unicauca.learnmetrics.lm.CapaAccesoDatos.Modelos.Rubrica.RubricaEntity;
+import edu.co.unicauca.learnmetrics.lm.CapaAccesoDatos.Modelos.RubricaEntity;
 
 @Repository
 public class RubricaRepository {

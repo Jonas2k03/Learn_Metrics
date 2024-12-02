@@ -7,7 +7,7 @@ import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import edu.co.unicauca.learnmetrics.lm.CapaAccesoDatos.Modelos.Asignatura.AsignaturaEntity;
+import edu.co.unicauca.learnmetrics.lm.CapaAccesoDatos.Modelos.AsignaturaEntity;
 import edu.co.unicauca.learnmetrics.lm.CapaAccesoDatos.Repositorios.AsignaturaRepository;
 import edu.co.unicauca.learnmetrics.lm.FachadaServices.DTO.AsignaturaDTO;
 

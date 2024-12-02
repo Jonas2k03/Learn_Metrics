@@ -1,49 +1,39 @@
 package edu.co.unicauca.learnmetrics.lm.FachadaServices.services.CompetenciaServices;
 
-import java.util.List;
-
 import org.modelmapper.ModelMapper;
-import org.modelmapper.TypeToken;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Service;
 
-import edu.co.unicauca.learnmetrics.lm.CapaAccesoDatos.Modelos.Competencia.CompetenciaEntity;
+import edu.co.unicauca.learnmetrics.lm.CapaAccesoDatos.Modelos.CompetenciaEntity;
 import edu.co.unicauca.learnmetrics.lm.CapaAccesoDatos.Repositorios.CompetenciaRepository;
 import edu.co.unicauca.learnmetrics.lm.FachadaServices.DTO.CompetenciaDTO;
 import edu.co.unicauca.learnmetrics.lm.CapaControladores.controladorExcepciones.excepcionesPropias.*;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class CompetenciaServiceImpl implements iCompetenciaService {
 
+    @Autowired
     private CompetenciaRepository competenciaRepository;
-    private ModelMapper modelMapper;
 
-    public CompetenciaServiceImpl(CompetenciaRepository competenciaRepository, ModelMapper modelMapper) {
-        this.competenciaRepository = competenciaRepository;
-        this.modelMapper = modelMapper;
-    }
+    @Autowired
+    private ModelMapper modelMapper;
 
     @Override
     public List<CompetenciaDTO> findAllComps() {
-        List<CompetenciaEntity> competencias = this.competenciaRepository.findAll();
-        return modelMapper.map(competencias, new TypeToken<List<CompetenciaDTO>>() {
-        }.getType());
+        List<CompetenciaEntity> competencias = (List<CompetenciaEntity>) competenciaRepository.findAll();
+        return competencias.stream()
+                .map(competencia -> modelMapper.map(competencia, CompetenciaDTO.class))
+                .collect(Collectors.toList());
     }
 
     @Override
     public CompetenciaDTO findCompById(Integer id) {
-
-        if (!competenciaRepository.existeCompetencia(id)) {
-            EntidadNoExisteException objException = new EntidadNoExisteException(
-                    "la competencia con el ID " + id + " no existe");
-            throw objException;
-        }
-
-        else {
-            CompetenciaEntity competencia = this.competenciaRepository.findById(id);
-            CompetenciaDTO competenciaDTO = this.modelMapper.map(competencia, CompetenciaDTO.class);
-            return competenciaDTO;
-        }
-
+        CompetenciaEntity competencia = competenciaRepository.findById(id)
+                .orElseThrow(() -> new EntidadNoExisteException("La competencia con el ID " + id + " no existe"));
+        return modelMapper.map(competencia, CompetenciaDTO.class);
     }
 
     @Override
@@ -55,24 +45,20 @@ public class CompetenciaServiceImpl implements iCompetenciaService {
 
     @Override
     public void deleteComp(Integer id) {
-        if (!competenciaRepository.existeCompetencia(id)) {
-            EntidadNoExisteException objException = new EntidadNoExisteException(
-                    "la competencia con el ID " + id + " no existe");
-            throw objException;
+        if (!competenciaRepository.existsById(id)) {
+            throw new EntidadNoExisteException("La competencia con el ID " + id + " no existe");
         }
-        competenciaRepository.delete(id);
+        competenciaRepository.deleteById(id);
     }
 
     @Override
     public CompetenciaDTO updateComp(Integer id, CompetenciaDTO competencia) {
-        if (!competenciaRepository.existeCompetencia(id)) {
-            EntidadNoExisteException objException = new EntidadNoExisteException(
-                    "la competencia con el ID " + id + " no existe");
-            throw objException;
+        if (!competenciaRepository.existsById(id)) {
+            throw new EntidadNoExisteException("La competencia con el ID " + id + " no existe");
         }
         CompetenciaEntity competenciaEntity = modelMapper.map(competencia, CompetenciaEntity.class);
-        competenciaEntity = competenciaRepository.update(id, competenciaEntity);
+        competenciaEntity.setCompId(id);
+        competenciaEntity = competenciaRepository.save(competenciaEntity);
         return modelMapper.map(competenciaEntity, CompetenciaDTO.class);
     }
-
 }

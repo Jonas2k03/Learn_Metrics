@@ -8,7 +8,7 @@ import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import edu.co.unicauca.learnmetrics.lm.CapaAccesoDatos.Modelos.Rubrica.RubricaEntity;
+import edu.co.unicauca.learnmetrics.lm.CapaAccesoDatos.Modelos.RubricaEntity;
 import edu.co.unicauca.learnmetrics.lm.CapaAccesoDatos.Repositorios.RubricaRepository;
 import edu.co.unicauca.learnmetrics.lm.CapaControladores.controladorExcepciones.excepcionesPropias.EntidadNoExisteException;
 import edu.co.unicauca.learnmetrics.lm.FachadaServices.DTO.RubricaDTO;
