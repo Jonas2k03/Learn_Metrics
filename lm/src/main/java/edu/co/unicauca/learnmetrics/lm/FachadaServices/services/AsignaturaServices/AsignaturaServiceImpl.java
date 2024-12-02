@@ -7,7 +7,12 @@ import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+<<<<<<< HEAD
 import edu.co.unicauca.learnmetrics.lm.CapaAccesoDatos.Modelos.AsignaturaEntity;
+=======
+import edu.co.unicauca.learnmetrics.lm.CapaAccesoDatos.Modelos.Asignatura.AsignaturaEntity;
+import edu.co.unicauca.learnmetrics.lm.CapaAccesoDatos.Modelos.Competencia.CompetenciaEntity;
+>>>>>>> 100d3775d14901edc5029a4ae9374ae8c494e3f6
 import edu.co.unicauca.learnmetrics.lm.CapaAccesoDatos.Repositorios.AsignaturaRepository;
 import edu.co.unicauca.learnmetrics.lm.FachadaServices.DTO.AsignaturaDTO;
 
@@ -73,8 +78,17 @@ public class AsignaturaServiceImpl implements IAsignaturaService {
 
     @Override
     public AsignaturaDTO asociarCompetencia(Integer asigId, Integer compId) {
+        AsignaturaEntity asignaturaEntity = servicioAccesoBaseDatos.findById(asigId);
+        CompetenciaEntity compEntity = new CompetenciaEntity();
+        if (asignaturaEntity != null) {
+            compEntity.setCompId(compId);
+            AsignaturaEntity updatedAsignatura = servicioAccesoBaseDatos.update(asigId, asignaturaEntity);
+            if (updatedAsignatura != null) {
+                return modelMapper.map(updatedAsignatura, AsignaturaDTO.class);
+            }
+        }
         return null;
-        // Implementar lógica para asociar competencia
+        
     }
 
 }

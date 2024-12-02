@@ -1,5 +1,12 @@
 package edu.co.unicauca.learnmetrics.lm.CapaAccesoDatos.Repositorios;
 
+<<<<<<< HEAD
+=======
+import edu.co.unicauca.learnmetrics.lm.CapaAccesoDatos.Modelos.Asignatura.AsignaturaEntity;
+import edu.co.unicauca.learnmetrics.lm.CapaAccesoDatos.Modelos.Competencia.CompetenciaEntity;
+import edu.co.unicauca.learnmetrics.lm.FachadaServices.DTO.AsignaturaDTO;
+
+>>>>>>> 100d3775d14901edc5029a4ae9374ae8c494e3f6
 import org.springframework.stereotype.Repository;
 
 import edu.co.unicauca.learnmetrics.lm.CapaAccesoDatos.Modelos.AsignaturaEntity;
@@ -77,8 +84,22 @@ public class AsignaturaRepository {
         return bandera;
     }
 
+    public AsignaturaEntity asociarCompetencia(Integer asigId, Integer compId) {
+        System.out.println("Invocando a asociar competencia");
+        AsignaturaEntity asignaturaEntity = findById(asigId);
+        CompetenciaEntity compEntity = new CompetenciaEntity();
+        if (asignaturaEntity != null) {
+            compEntity.setCompId(compId);
+            AsignaturaEntity updatedAsignatura = update(asigId, asignaturaEntity);
+            if (updatedAsignatura != null) {
+                return updatedAsignatura;
+            }
+        }
+        return null;
+    }
+
     private void cargarAsignaturas() {
-        AsignaturaEntity asignatura1 = new AsignaturaEntity(); // CARGAAAAAAAAAAR
+        AsignaturaEntity asignatura1 = new AsignaturaEntity(1, "Matematicas", 3, "Aprender matematicas", 1, null);
         this.listaDeAsignaturas.add(asignatura1);
 
     }
