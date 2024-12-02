@@ -2,7 +2,7 @@ package edu.co.unicauca.learnmetrics.lm.FachadaServices.DTO;
 
 import java.util.List;
 
-import edu.co.unicauca.learnmetrics.lm.CapaAccesoDatos.Modelos.RubricaEntity;
+import edu.co.unicauca.learnmetrics.lm.CapaAccesoDatos.Modelos.Rubrica.RubricaEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;

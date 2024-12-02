@@ -1,11 +1,11 @@
 package edu.co.unicauca.learnmetrics.lm.CapaAccesoDatos.Repositorios;
 
+import edu.co.unicauca.learnmetrics.lm.CapaAccesoDatos.Modelos.Docente.DocenteEntity;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
-
-import edu.co.unicauca.learnmetrics.lm.CapaAccesoDatos.Modelos.DocenteEntity;
 
 @Repository
 public class DocenteRepository {

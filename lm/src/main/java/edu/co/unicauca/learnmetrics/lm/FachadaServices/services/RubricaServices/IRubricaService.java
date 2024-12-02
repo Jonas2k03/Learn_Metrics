@@ -10,9 +10,9 @@ public interface IRubricaService {
 
 	public RubricaDTO findById(Long id);
 
-	public RubricaDTO save(RubricaDTO rubrica);
+	public RubricaDTO save(RubricaDTO cliente);
 
-	public RubricaDTO update(Long id, RubricaDTO rubrica);
+	public RubricaDTO update(Long id, RubricaDTO cliente);
 
 	public boolean delete(Long id);
 }

@@ -6,7 +6,7 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.stereotype.Service;
 
-import edu.co.unicauca.learnmetrics.lm.CapaAccesoDatos.Modelos.ResultadoAprendizajeEntity;
+import edu.co.unicauca.learnmetrics.lm.CapaAccesoDatos.Modelos.RA.ResultadoAprendizajeEntity;
 import edu.co.unicauca.learnmetrics.lm.CapaAccesoDatos.Repositorios.ResultadoAprendizajeRepository;
 import edu.co.unicauca.learnmetrics.lm.CapaControladores.controladorExcepciones.excepcionesPropias.*;
 import edu.co.unicauca.learnmetrics.lm.FachadaServices.DTO.ResultadoAprendizajeDTO;
