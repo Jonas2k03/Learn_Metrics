@@ -66,21 +66,21 @@ public class Asig_Com_Doc_RestController {
     }
 
     @DeleteMapping("/desasociarDocAsig/{idDocente}/{idAsignatura}")
-    public boolean desasociarDocenteAsignatura(
+    public Asig_Comp_Doc_DTO desasociarDocenteAsignatura(
             @PathVariable("idDocente") Integer idDocente,
             @PathVariable("idAsignatura") Integer idAsignatura) {
         return asig_comp_docService.desasociarDocenteAsignatura(idDocente, idAsignatura);
     }
 
     @DeleteMapping("/desasociarCompAsig/{idCompetencia}/{idAsignatura}")
-    public boolean desasociarCompetenciaAsignatura(
+    public Asig_Comp_Doc_DTO desasociarCompetenciaAsignatura(
             @PathVariable("idCompetencia") Integer idCompetencia,
             @PathVariable("idAsignatura") Integer idAsignatura) {
         return asig_comp_docService.desasociarCompetenciaAsignatura(idCompetencia, idAsignatura);
     }
 
     @DeleteMapping("/desasociar/{idAsignatura}/{idCompetencia}/{idDocente}")
-    public boolean desasociarAsig_Comp_Doc_DTO(
+    public Asig_Comp_Doc_DTO desasociarAsig_Comp_Doc_DTO(
             @PathVariable("idAsignatura") Integer idAsignatura,
             @PathVariable("idCompetencia") Integer idCompetencia,
             @PathVariable("idDocente") Integer idDocente) {

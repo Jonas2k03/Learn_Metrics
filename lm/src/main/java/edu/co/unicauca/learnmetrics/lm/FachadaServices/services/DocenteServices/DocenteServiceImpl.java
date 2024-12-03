@@ -62,9 +62,9 @@ public class DocenteServiceImpl implements IDocenteService {
             docenteEntity.setDoc_nombres(docente.getDoc_nombres());
             docenteEntity.setDoc_apellidos(docente.getDoc_apellidos());
             docenteEntity.setDoc_correo(docente.getDoc_correo());
-            docenteEntity.setDoc_tipo_identificacion(docente.getDoc_tipo_identificacion());
+            docenteEntity.setTipoDeIdentificacion(docente.getTipoDeIdentificacion());
             docenteEntity.setDoc_identificacion(docente.getDoc_identificacion());
-            docenteEntity.setDoc_tipo_docente(docente.getDoc_tipo_docente());
+            docenteEntity.setTipoDeDocente(docente.getTipoDeDocente());
             docenteEntity.setDoc_titulo(docente.getDoc_titulo());
 
             docenteEntity = this.servicioAccesoBaseDatos.save(docenteEntity);
