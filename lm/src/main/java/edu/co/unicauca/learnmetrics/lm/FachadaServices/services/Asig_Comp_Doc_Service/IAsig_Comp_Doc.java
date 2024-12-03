@@ -16,4 +16,17 @@ public interface IAsig_Comp_Doc {
 
     public Asig_Comp_Doc_DTO update(Integer id, Asig_Comp_Doc_DTO asi_comp_doc);
 
+    public Asig_Comp_Doc_DTO asociarDocenteAsignatura(Integer idDocente, Integer idAsignatura);
+
+    public Asig_Comp_Doc_DTO asociarCompetenciaAsignatura(Integer idCompetencia, Integer idAsignatura);
+
+    public Asig_Comp_Doc_DTO asociarAsig_Comp_Doc_DTO(Integer idAsignatura, Integer idCompetencia, Integer idDocente);
+
+    public boolean desasociarDocenteAsignatura(Integer idDocente, Integer idAsignatura);
+
+    public boolean desasociarCompetenciaAsignatura(Integer idCompetencia, Integer idAsignatura);
+
+    public boolean desasociarAsig_Comp_Doc_DTO(Integer idAsignatura, Integer idCompetencia,
+            Integer idDocente);
+
 }

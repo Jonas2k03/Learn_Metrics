@@ -2,11 +2,17 @@ package edu.co.unicauca.learnmetrics.lm.CapaAccesoDatos.Modelos.Competencia;
 
 import edu.co.unicauca.learnmetrics.lm.CapaAccesoDatos.Modelos.AsignacionEntity.Asig_Comp_Doc_Entity;
 import edu.co.unicauca.learnmetrics.lm.CapaAccesoDatos.Modelos.RA.ResultadoAprendizajeEntity;
+
+import java.util.ArrayList;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.*;
 
 import lombok.*;
-
 
 @Data
 @AllArgsConstructor
@@ -32,8 +38,7 @@ public class CompetenciaEntity {
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "objCompetencia")
     private List<ResultadoAprendizajeEntity> RA;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "oCompetenciaEntity")
-    private List<Asig_Comp_Doc_Entity> asignaciones;
-
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "oCompetenciaEntity", cascade = CascadeType.ALL)
+    private List<Asig_Comp_Doc_Entity> asignaciones = new ArrayList<>();
 
 }

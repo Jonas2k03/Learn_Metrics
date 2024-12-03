@@ -11,7 +11,7 @@ public interface iCompetenciaService {
 
     public CompetenciaDTO saveComp(CompetenciaDTO competencia);
 
-    public void deleteComp(Integer id);
+    public boolean deleteComp(Integer id);
 
     public CompetenciaDTO updateComp(Integer id, CompetenciaDTO competencia);
 

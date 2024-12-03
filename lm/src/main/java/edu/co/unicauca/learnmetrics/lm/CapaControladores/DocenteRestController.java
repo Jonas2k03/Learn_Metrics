@@ -49,7 +49,7 @@ public class DocenteRestController {
         return msg;
     }
 
-    @PostMapping()
+    @PostMapping
     public DocenteDTO crearDocente(@RequestBody DocenteDTO docente) {
         DocenteDTO objDocente = null;
         objDocente = docenteService.save(docente);

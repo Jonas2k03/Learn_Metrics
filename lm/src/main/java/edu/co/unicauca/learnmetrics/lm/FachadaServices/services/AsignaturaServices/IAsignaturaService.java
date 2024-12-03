@@ -12,7 +12,5 @@ public interface IAsignaturaService {
 
     public AsignaturaDTO update(Integer id, AsignaturaDTO asignatura);
 
-    public AsignaturaDTO asociarCompetencia(Integer asigId, Integer compId); // List<CompetenciasDTO>
-
     public boolean delete(Integer id);
 }

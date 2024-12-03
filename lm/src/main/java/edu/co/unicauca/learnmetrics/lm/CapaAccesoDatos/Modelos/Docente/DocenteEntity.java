@@ -1,9 +1,13 @@
 package edu.co.unicauca.learnmetrics.lm.CapaAccesoDatos.Modelos.Docente;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import edu.co.unicauca.learnmetrics.lm.CapaAccesoDatos.Modelos.AsignacionEntity.Asig_Comp_Doc_Entity;
-import jakarta.persistence.Column;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -44,8 +48,8 @@ public class DocenteEntity {
     @Column(name = "DOC_CORREO", length = 50, nullable = false)
     private String doc_correo;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "oDocenteEntity")
-    private List<Asig_Comp_Doc_Entity> asignaciones;
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "oDocenteEntity", cascade = CascadeType.ALL)
+    private List<Asig_Comp_Doc_Entity> asignaciones = new ArrayList<>();
 
     public DocenteEntity() {
 

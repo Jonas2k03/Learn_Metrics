@@ -1,7 +1,6 @@
 package edu.co.unicauca.learnmetrics.lm.CapaAccesoDatos.Repositorios;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.repository.CrudRepository;
 import edu.co.unicauca.learnmetrics.lm.CapaAccesoDatos.Modelos.Competencia.CompetenciaEntity;
 import org.springframework.stereotype.Repository;
 
