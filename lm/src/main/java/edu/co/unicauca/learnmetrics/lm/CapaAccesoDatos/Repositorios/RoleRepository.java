@@ -9,5 +9,6 @@ import edu.co.unicauca.learnmetrics.lm.CapaAccesoDatos.Modelos.Docente.Role;
 
 @Repository
 public interface RoleRepository extends JpaRepository<Role, Long> {
+  
   Optional<Role> findByName(ERole name);
 }
