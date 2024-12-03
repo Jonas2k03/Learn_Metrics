@@ -198,7 +198,7 @@ public class Imp_Asig_Comp_Doc implements IAsig_Comp_Doc {
 
     @Override
     @Transactional(readOnly = false)
-    public Asig_Comp_Doc_DTO desasociarAsig_Comp_Doc_DTO(Integer idAsignatura, Integer idCompetencia,
+    public Asig_Comp_Doc_DTO desasociarAsig_Comp_Doc(Integer idAsignatura, Integer idCompetencia,
             Integer idDocente) {
         Asig_Comp_Doc_DTO asi_comp_docDTO = new Asig_Comp_Doc_DTO();
         Optional<CompetenciaEntity> competencia = competenciaRepository.findById(idCompetencia);

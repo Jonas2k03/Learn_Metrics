@@ -84,7 +84,7 @@ public class Asig_Com_Doc_RestController {
             @PathVariable("idAsignatura") Integer idAsignatura,
             @PathVariable("idCompetencia") Integer idCompetencia,
             @PathVariable("idDocente") Integer idDocente) {
-        return asig_comp_docService.desasociarAsig_Comp_Doc_DTO(idAsignatura, idCompetencia, idDocente);
+        return asig_comp_docService.desasociarAsig_Comp_Doc(idAsignatura, idCompetencia, idDocente);
     }
 
 }

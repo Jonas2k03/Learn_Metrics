@@ -26,6 +26,7 @@ public interface IAsig_Comp_Doc {
 
     public Asig_Comp_Doc_DTO desasociarCompetenciaAsignatura(Integer idCompetencia, Integer idAsignatura);
 
-    public Asig_Comp_Doc_DTO desasociarAsig_Comp_Doc_DTO(Integer idAsignatura, Integer idCompetencia,Integer idDocente);
+    public Asig_Comp_Doc_DTO desasociarAsig_Comp_Doc(Integer idAsignatura, Integer idCompetencia,
+            Integer idDocente);
 
 }
