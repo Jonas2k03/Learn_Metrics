@@ -1,11 +1,13 @@
 package edu.co.unicauca.learnmetrics.lm.FachadaServices.services.AsignaturaServices;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import edu.co.unicauca.learnmetrics.lm.CapaAccesoDatos.Modelos.Asignatura.AsignaturaEntity;
 import edu.co.unicauca.learnmetrics.lm.CapaAccesoDatos.Repositorios.AsignaturaRepository;
@@ -20,61 +22,67 @@ public class AsignaturaServiceImpl implements IAsignaturaService {
     @Autowired
     private ModelMapper modelMapper;
 
-    public AsignaturaServiceImpl(AsignaturaRepository servicioAccesoBaseDatos, ModelMapper modelMapper) {
-        this.servicioAccesoBaseDatos = servicioAccesoBaseDatos;
-        this.modelMapper = modelMapper;
-    }
-
     @Override
+    @Transactional(readOnly = true)
     public List<AsignaturaDTO> findAll() {
-        List<AsignaturaEntity> asignaturasEntity = this.servicioAccesoBaseDatos.findAll();
-        List<AsignaturaDTO> asignaturasDTO = this.modelMapper.map(asignaturasEntity,
+        Iterable<AsignaturaEntity> asignaturas = this.servicioAccesoBaseDatos.findAll();
+        List<AsignaturaDTO> asignaturasDTO = this.modelMapper.map(asignaturas,
                 new TypeToken<List<AsignaturaDTO>>() {
                 }.getType());
         return asignaturasDTO;
-
     }
 
     @Override
-    public AsignaturaDTO save(AsignaturaDTO asignatura) {
-        AsignaturaEntity asignaturasEntity = modelMapper.map(asignatura, AsignaturaEntity.class);
-        AsignaturaEntity objAsignaturaEntity = this.servicioAccesoBaseDatos.save(asignaturasEntity);
-        AsignaturaDTO AsignaturaDTO = this.modelMapper.map(objAsignaturaEntity, AsignaturaDTO.class);
-        return AsignaturaDTO;
-    }
-
-    @Override
+    @Transactional(readOnly = true)
     public AsignaturaDTO findById(Integer id) {
-        AsignaturaEntity asignaturaEntity = servicioAccesoBaseDatos.findById(id);
-        if (asignaturaEntity != null) {
+        Optional<AsignaturaEntity> optional = this.servicioAccesoBaseDatos.findById(id);
+        AsignaturaEntity asignatura = optional.get();
+
+        AsignaturaDTO asignaturaDTO = modelMapper.map(asignatura, AsignaturaDTO.class);
+        return asignaturaDTO;
+    }
+
+    @Override
+    @Transactional(readOnly = false)
+    public AsignaturaDTO save(AsignaturaDTO asignatura) {
+        AsignaturaEntity asignaturaEntity = modelMapper.map(asignatura, AsignaturaEntity.class);
+        asignaturaEntity = servicioAccesoBaseDatos.save(asignaturaEntity);
+        return modelMapper.map(asignaturaEntity, AsignaturaDTO.class);
+    }
+
+    @Override
+    @Transactional(readOnly = false)
+    public AsignaturaDTO update(Integer id, AsignaturaDTO asignatura) {
+        Optional<AsignaturaEntity> optional = servicioAccesoBaseDatos.findById(id);
+        if (optional.isPresent()) {
+            AsignaturaEntity asignaturaEntity = optional.get();
+
+            asignaturaEntity.setNombre(asignatura.getNombre());
+            asignaturaEntity.setCreditos(asignatura.getCreditos());
+            asignaturaEntity.setSemestre(asignatura.getSemestre());
+            asignaturaEntity.setObjetivos(asignatura.getObjetivos());
+
+            asignaturaEntity = servicioAccesoBaseDatos.save(asignaturaEntity);
             return modelMapper.map(asignaturaEntity, AsignaturaDTO.class);
+
         }
+
         return null;
 
     }
 
     @Override
-    public AsignaturaDTO update(Integer id, AsignaturaDTO asignaturaDTO) {
-        AsignaturaEntity asignaturasEntity = modelMapper.map(asignaturaDTO, AsignaturaEntity.class);
-        AsignaturaEntity updatedAsignatura = servicioAccesoBaseDatos.update(id, asignaturasEntity);
-        if (updatedAsignatura != null) {
-            return modelMapper.map(updatedAsignatura, AsignaturaDTO.class);
-        }
-        return asignaturaDTO; // Throw exception
-    }
-
-    @Override
+    @Transactional(readOnly = false)
     public boolean delete(Integer id) {
-        if (this.servicioAccesoBaseDatos.findById(id) == null) {
-            return false;
-        }
-        return servicioAccesoBaseDatos.delete(id);
-    }
+        boolean bandera = false;
+        Optional<AsignaturaEntity> optional = servicioAccesoBaseDatos.findById(id);
+        AsignaturaEntity asignatura = optional.get();
 
-    @Override
-    public AsignaturaDTO asociarCompetencia(Integer asigId, Integer compId) {
-        return null;
-        // Implementar lógica para asociar competencia
+        if (asignatura != null) {
+            servicioAccesoBaseDatos.deleteById(id);
+            bandera = true;
+        }
+        return bandera;
     }
 
 }

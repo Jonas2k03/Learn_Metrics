@@ -16,5 +16,5 @@ public class AsignaturaDTO {
     private Integer creditos;
     private String objetivos;
     private Integer semestre;
-    private List<CompetenciaDTO> competencias;
+    private List<Asig_Comp_Doc_DTO> asignaciones;
 }

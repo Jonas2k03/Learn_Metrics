@@ -2,6 +2,7 @@ package edu.co.unicauca.learnmetrics.lm.CapaAccesoDatos.Modelos.Docente;
 import edu.co.unicauca.learnmetrics.lm.CapaAccesoDatos.Modelos.AsignacionEntity.Asig_Comp_Doc_Entity;
 
 import java.util.List;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -15,6 +16,13 @@ import org.hibernate.annotations.NaturalId;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import edu.co.unicauca.learnmetrics.lm.CapaAccesoDatos.Modelos.AsignacionEntity.Asig_Comp_Doc_Entity;
+
 
 
 @Getter
@@ -61,15 +69,18 @@ public class DocenteEntity {
     @Column(name = "DOC_IDENTIFICACION", nullable = false)
     private String doc_identificacion;
 
-
+    @NotBlank
+    @Size(max = 50)
     private String doc_titulo;
 
+    @NotBlank
+    @Email
     @Column(name = "DOC_CORREO", length = 50, nullable = false)
     private String doc_correo;
 
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "oDocenteEntity")
-    private List<Asig_Comp_Doc_Entity> asignaciones;
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "oDocenteEntity", cascade = CascadeType.ALL)
+    private List<Asig_Comp_Doc_Entity> asignaciones = new ArrayList<>();
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(  name = "user_roles", 
