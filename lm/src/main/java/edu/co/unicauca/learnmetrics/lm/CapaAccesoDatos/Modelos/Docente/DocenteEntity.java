@@ -27,11 +27,10 @@ import edu.co.unicauca.learnmetrics.lm.CapaAccesoDatos.Modelos.AsignacionEntity.
 
 @Getter
 @Setter
-@Table(name = "TBL_DOCENTE", uniqueConstraints = {
-        @UniqueConstraint(columnNames = "DOC_USERNAME"),
-        @UniqueConstraint(columnNames = "DOC_CORREO") })
 @Entity
-
+@Table(name = "TBL_DOCENTE", uniqueConstraints = {
+        @UniqueConstraint(columnNames = "username"),
+        @UniqueConstraint(columnNames = "email") })
 public class DocenteEntity {
 
     @NotBlank
@@ -41,6 +40,11 @@ public class DocenteEntity {
     @NotBlank
     @Size(max = 20)
     private String username;
+
+    @NotBlank
+    @Size(max = 20)
+    private String email;
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -73,10 +77,11 @@ public class DocenteEntity {
     @Size(max = 50)
     private String doc_titulo;
 
+    /* 
     @NotBlank
     @Email
     @Column(name = "DOC_CORREO", length = 50, nullable = false)
-    private String doc_correo;
+    private String doc_correo;*/
 
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "oDocenteEntity", cascade = CascadeType.ALL)
@@ -84,7 +89,7 @@ public class DocenteEntity {
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(  name = "user_roles", 
-        joinColumns = @JoinColumn(name = "user_id"), 
+        joinColumns = @JoinColumn(name = "DOC_ID"), 
         inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
@@ -93,17 +98,18 @@ public class DocenteEntity {
 
     }
 
-    public DocenteEntity(String username, String password, TipoDeIdentificacion TipoDeIdentificacion, TipoDeDocente TipoDeDocente, String doc_nombres, String doc_apellidos, String doc_identificacion, String doc_titulo, String doc_correo) {
+    public DocenteEntity(String username, String email, String password, String nombre, String apellido, String identificacion, TipoDeIdentificacion tipoDeIdentificacion, String titulo, TipoDeDocente tipoDeDocente) {
         this.username = username;
+        this.email = email;
+        //this.doc_correo = email;
         this.password = password;
-        this.TipoDeIdentificacion = TipoDeIdentificacion;
-        this.TipoDeDocente = TipoDeDocente;
-        this.doc_nombres = doc_nombres;
-        this.doc_apellidos = doc_apellidos;
-        this.doc_identificacion = doc_identificacion;
-        this.doc_titulo = doc_titulo;
-        this.doc_correo = doc_correo;
-    }       
+        this.doc_nombres = nombre;
+        this.doc_apellidos = apellido;
+        this.doc_identificacion = identificacion;
+        this.TipoDeIdentificacion = tipoDeIdentificacion;
+        this.doc_titulo = titulo;
+        this.TipoDeDocente = tipoDeDocente;
+      }
 
 
 }
