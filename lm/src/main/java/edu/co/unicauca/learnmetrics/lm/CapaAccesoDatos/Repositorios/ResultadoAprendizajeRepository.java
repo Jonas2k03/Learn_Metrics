@@ -11,6 +11,6 @@ import edu.co.unicauca.learnmetrics.lm.CapaAccesoDatos.Modelos.RA.ResultadoApren
 @Repository
 public interface ResultadoAprendizajeRepository extends JpaRepository<ResultadoAprendizajeEntity, Integer> {
 
-    List<ResultadoAprendizajeEntity> findByObjAsignaturaAndPeriodo(AsignaturaEntity asignatura, Integer periodo);
+    //List<ResultadoAprendizajeEntity> findByObjAsignaturaAndPeriodo(AsignaturaEntity asignatura, Integer periodo);
 
 }

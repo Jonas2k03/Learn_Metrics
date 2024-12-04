@@ -155,7 +155,7 @@ public class CompetenciaServiceImpl implements iCompetenciaService {
         }
     }
 
-    @Transactional(readOnly = false)
+   /*  @Transactional(readOnly = false)
     public void copiarRaDeOtroPeriodo(Integer idAsignaturaOrigen, Integer idPeriodoOrigen, Integer idAsignaturaDestino,
             Integer idPeriodoDestino) {
         // Buscar la asignatura de origen y destino
@@ -185,6 +185,6 @@ public class CompetenciaServiceImpl implements iCompetenciaService {
             asigCompDoc.setOCompetenciaEntity(raNuevo.getObjCompetencia());
 
         }
-    }
+    }*/
 
 }

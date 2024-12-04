@@ -11,6 +11,6 @@ public interface Asig_Comp_Doc_Repository extends JpaRepository<Asig_Comp_Doc_En
 
     List<Asig_Comp_Doc_Entity> findByPeriodo(Integer periodo);
 
-    List<Asig_Comp_Doc_Entity> findByOAsignaturaEntityAndPeriodo(AsignaturaEntity asignatura, Integer periodo);
+    //List<Asig_Comp_Doc_Entity> findByOAsignaturaEntityAndPeriodo(AsignaturaEntity asignatura, Integer periodo);
 
 }

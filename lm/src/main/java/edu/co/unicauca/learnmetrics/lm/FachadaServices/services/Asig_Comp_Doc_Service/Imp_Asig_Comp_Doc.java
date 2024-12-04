@@ -226,7 +226,7 @@ public class Imp_Asig_Comp_Doc implements IAsig_Comp_Doc {
         return asi_comp_docDTOList;
     }
 
-    @Override
+    /*@Override
     @Transactional(readOnly = true)
     public List<Asig_Comp_Doc_DTO> buscarPeriodoAsignatura(Integer idAsignatura, Integer idPeriodo) {
         Optional<AsignaturaEntity> asignatura = asignaturaRepository.findById(idAsignatura);
@@ -241,6 +241,6 @@ public class Imp_Asig_Comp_Doc implements IAsig_Comp_Doc {
         }
 
         return null; // O podrías lanzar una excepción si prefieres manejar errores de otra manera
-    }
+    }*/
 
 }
