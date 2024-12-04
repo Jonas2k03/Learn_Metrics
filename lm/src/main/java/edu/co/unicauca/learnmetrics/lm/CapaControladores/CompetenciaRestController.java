@@ -59,4 +59,16 @@ public class CompetenciaRestController {
         return ResponseEntity.ok(competenciaService.updateComp(id, competencia));
     }
 
+    @PostMapping("/asociarRa/{id}/{idRa}")
+    public ResponseEntity<CompetenciaDTO> asociarRa(@PathVariable Integer id, @PathVariable Integer idRa) {
+        competenciaService.asociarRa(id, idRa);
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("/desasociarRa/{id}/{idRa}")
+    public ResponseEntity<CompetenciaDTO> desasociarRa(@PathVariable Integer id, @PathVariable Integer idRa) {
+        competenciaService.desasociarRa(id, idRa);
+        return ResponseEntity.ok().build();
+    }
+
 }

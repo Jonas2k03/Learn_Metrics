@@ -4,8 +4,15 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import edu.co.unicauca.learnmetrics.lm.CapaAccesoDatos.Modelos.AsignacionEntity.Asig_Comp_Doc_Entity;
+import edu.co.unicauca.learnmetrics.lm.CapaAccesoDatos.Modelos.Asignatura.AsignaturaEntity;
 import edu.co.unicauca.learnmetrics.lm.CapaAccesoDatos.Modelos.Competencia.CompetenciaEntity;
+import edu.co.unicauca.learnmetrics.lm.CapaAccesoDatos.Modelos.RA.ResultadoAprendizajeEntity;
+import edu.co.unicauca.learnmetrics.lm.CapaAccesoDatos.Repositorios.Asig_Comp_Doc_Repository;
+import edu.co.unicauca.learnmetrics.lm.CapaAccesoDatos.Repositorios.AsignaturaRepository;
 import edu.co.unicauca.learnmetrics.lm.CapaAccesoDatos.Repositorios.CompetenciaRepository;
+import edu.co.unicauca.learnmetrics.lm.CapaAccesoDatos.Repositorios.ResultadoAprendizajeRepository;
 import edu.co.unicauca.learnmetrics.lm.FachadaServices.DTO.CompetenciaDTO;
 
 import org.springframework.transaction.annotation.Transactional;
@@ -20,6 +27,15 @@ public class CompetenciaServiceImpl implements iCompetenciaService {
 
     @Autowired
     private CompetenciaRepository competenciaRepository;
+
+    @Autowired
+    private AsignaturaRepository asignaturaRepository;
+
+    @Autowired
+    private Asig_Comp_Doc_Repository asig_Comp_Doc_Repository;
+
+    @Autowired
+    private ResultadoAprendizajeRepository resultadoAprendizajeRepository;
 
     @Autowired
     private ModelMapper modelMapper;
@@ -89,6 +105,86 @@ public class CompetenciaServiceImpl implements iCompetenciaService {
         // Si no se encuentra la entidad, devuelve null o lanza una excepción según tu
         // lógica de negocio
         return null;
+    }
+
+    @Override
+    public void asociarRa(Integer id, Integer idRa) {
+        // Buscar la competencia por su id
+        Optional<CompetenciaEntity> optionalCompetencia = competenciaRepository.findById(id);
+        // Buscar el resultado de aprendizaje por su id
+        Optional<ResultadoAprendizajeEntity> optionalRa = resultadoAprendizajeRepository.findById(idRa);
+
+        // Verificar que ambos objetos existan
+        if (optionalCompetencia.isPresent() && optionalRa.isPresent()) {
+            CompetenciaEntity competencia = optionalCompetencia.get();
+            ResultadoAprendizajeEntity ra = optionalRa.get();
+
+            // Asociar el resultado de aprendizaje a la competencia
+            competencia.getRA().add(ra); // Añadir RA a la lista de RA's de la competencia
+
+            // Establecer la referencia de la competencia en el RA
+            ra.setObjCompetencia(competencia); // Establecer la competencia en el RA
+
+            // Guardar los cambios en ambas entidades
+            competenciaRepository.save(competencia); // Guardar la competencia actualizada
+            resultadoAprendizajeRepository.save(ra); // Guardar el RA actualizado
+        }
+    }
+
+    @Override
+    public void desasociarRa(Integer id, Integer idRa) {
+        // Buscar la competencia por su id
+        Optional<CompetenciaEntity> optionalCompetencia = competenciaRepository.findById(id);
+        // Buscar el resultado de aprendizaje por su id
+        Optional<ResultadoAprendizajeEntity> optionalRa = resultadoAprendizajeRepository.findById(idRa);
+
+        // Verificar que ambos objetos existan
+        if (optionalCompetencia.isPresent() && optionalRa.isPresent()) {
+            CompetenciaEntity competencia = optionalCompetencia.get();
+            ResultadoAprendizajeEntity ra = optionalRa.get();
+
+            // Desasociar el resultado de aprendizaje de la competencia
+            competencia.getRA().remove(ra); // Eliminar RA de la lista de RA's de la competencia
+
+            // Establecer la referencia de la competencia en el RA
+            ra.setObjCompetencia(null); // Establecer la competencia en el RA como null
+
+            // Guardar los cambios en ambas entidades
+            competenciaRepository.save(competencia); // Guardar la competencia actualizada
+            resultadoAprendizajeRepository.save(ra); // Guardar el RA actualizado
+        }
+    }
+
+    @Transactional(readOnly = false)
+    public void copiarRaDeOtroPeriodo(Integer idAsignaturaOrigen, Integer idPeriodoOrigen, Integer idAsignaturaDestino,
+            Integer idPeriodoDestino) {
+        // Buscar la asignatura de origen y destino
+        Optional<AsignaturaEntity> asignaturaOrigenOpt = asignaturaRepository.findById(idAsignaturaOrigen);
+        Optional<AsignaturaEntity> asignaturaDestinoOpt = asignaturaRepository.findById(idAsignaturaDestino);
+
+        if (asignaturaOrigenOpt.isPresent() && asignaturaDestinoOpt.isPresent()) {
+            AsignaturaEntity asignaturaOrigen = asignaturaOrigenOpt.get();
+            AsignaturaEntity asignaturaDestino = asignaturaDestinoOpt.get();
+
+            // Buscar los RA del periodo origen asociados a la asignatura origen
+            List<ResultadoAprendizajeEntity> raOrigenList = resultadoAprendizajeRepository
+                    .findByObjAsignaturaAndPeriodo(asignaturaOrigen, idPeriodoOrigen);
+            ResultadoAprendizajeEntity raNuevo = new ResultadoAprendizajeEntity();
+            // Copiar cada RA y asociarlo al periodo y asignatura de destino
+            for (ResultadoAprendizajeEntity raOrigen : raOrigenList) {
+
+                raNuevo.setDescripcionRA(raOrigen.getDescripcionRA());
+                raNuevo.setObjCompetencia(raOrigen.getObjCompetencia());
+
+                // Guardar la copia del RA
+                resultadoAprendizajeRepository.save(raNuevo);
+            }
+
+            Asig_Comp_Doc_Entity asigCompDoc = new Asig_Comp_Doc_Entity();
+            asigCompDoc.setOAsignaturaEntity(asignaturaDestino);
+            asigCompDoc.setOCompetenciaEntity(raNuevo.getObjCompetencia());
+
+        }
     }
 
 }

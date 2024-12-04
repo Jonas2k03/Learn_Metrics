@@ -23,6 +23,9 @@ public class Asig_Comp_Doc_Entity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer asi_comp_doc_ID;
 
+    @Column(name = "periodo", nullable = false)
+    private Integer periodo;
+
     @ManyToOne
     @JoinColumn(name = "compId", nullable = true)
     @JsonIgnore

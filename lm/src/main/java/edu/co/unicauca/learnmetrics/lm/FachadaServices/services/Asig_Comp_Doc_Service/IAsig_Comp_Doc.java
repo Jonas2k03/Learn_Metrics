@@ -29,4 +29,8 @@ public interface IAsig_Comp_Doc {
     public Asig_Comp_Doc_DTO desasociarAsig_Comp_Doc(Integer idAsignatura, Integer idCompetencia,
             Integer idDocente);
 
+    public List<Asig_Comp_Doc_DTO> buscarPeriodoAsignatura(Integer idAsignatura, Integer idPeriodo);
+
+    public List<Asig_Comp_Doc_DTO> buscarPorPeriodo(Integer idPeriodo);
+
 }

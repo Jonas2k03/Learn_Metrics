@@ -36,7 +36,8 @@ public class CompetenciaEntity {
     private String nivel;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "objCompetencia")
-    private List<ResultadoAprendizajeEntity> RA;
+    @JsonManagedReference
+    private List<ResultadoAprendizajeEntity> RA = new ArrayList<>();
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "oCompetenciaEntity", cascade = CascadeType.ALL)
     private List<Asig_Comp_Doc_Entity> asignaciones = new ArrayList<>();

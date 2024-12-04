@@ -21,7 +21,7 @@ import edu.co.unicauca.learnmetrics.lm.FachadaServices.services.RubricaServices.
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = "http://localhost:51011", methods = { RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT,
+@CrossOrigin(origins = "http://localhost:4200", methods = { RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT,
         RequestMethod.DELETE })
 public class RubricaRestController {
 
@@ -36,7 +36,7 @@ public class RubricaRestController {
     }
 
     @GetMapping("/rubricas/{id}")
-    public ResponseEntity<RubricaDTO> consultarRubrica(@PathVariable Long id) {
+    public ResponseEntity<RubricaDTO> consultarRubrica(@PathVariable Integer id) {
         RubricaDTO objRubrica = rubricaService.findById(id);
         ResponseEntity<RubricaDTO> objRespuesta = new ResponseEntity<RubricaDTO>(objRubrica, HttpStatus.OK);
         return objRespuesta;
@@ -50,16 +50,23 @@ public class RubricaRestController {
     }
 
     @PutMapping()
-    public ResponseEntity<RubricaDTO> actualizarRubrica(@RequestBody RubricaDTO rubrica, @PathVariable Long id) {
+    public ResponseEntity<RubricaDTO> actualizarRubrica(@RequestBody RubricaDTO rubrica, @PathVariable Integer id) {
         RubricaDTO objRubrica = rubricaService.update(id, rubrica);
         ResponseEntity<RubricaDTO> objRespuesta = new ResponseEntity<RubricaDTO>(objRubrica, HttpStatus.OK);
         return objRespuesta;
     }
 
     @DeleteMapping()
-    public ResponseEntity<Boolean> eliminarRubrica(@PathVariable Long id) {
+    public ResponseEntity<Boolean> eliminarRubrica(@PathVariable Integer id) {
         Boolean bandera = rubricaService.delete(id);
         ResponseEntity<Boolean> objRespuesta = new ResponseEntity<Boolean>(bandera, HttpStatus.NO_CONTENT);
         return objRespuesta;
+    }
+
+    @PostMapping("/asociarCriterio/{idRubrica}/{idCriterio}")
+    public ResponseEntity<RubricaDTO> asociarCriterio(@PathVariable Integer idRubrica,
+            @PathVariable Integer idCriterio) {
+        rubricaService.asociarCriterio(idRubrica, idCriterio);
+        return ResponseEntity.ok().build();
     }
 }
