@@ -3,6 +3,7 @@ package edu.co.unicauca.learnmetrics.lm.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 //import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -89,6 +90,8 @@ public class WebSecurityConfig { // extends WebSecurityConfigurerAdapter {
         .exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandler))
         .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         .authorizeHttpRequests(auth -> auth.requestMatchers("/api/auth/**").permitAll()
+            .requestMatchers(HttpMethod.GET).permitAll()
+            .requestMatchers(HttpMethod.OPTIONS).permitAll()
             .requestMatchers("/api/test/**").permitAll()
             .requestMatchers("api/docentes/**").permitAll()
             .requestMatchers("api/competencias/**").permitAll()
