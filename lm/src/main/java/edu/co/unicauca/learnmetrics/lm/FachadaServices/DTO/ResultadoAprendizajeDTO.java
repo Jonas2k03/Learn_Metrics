@@ -2,6 +2,7 @@ package edu.co.unicauca.learnmetrics.lm.FachadaServices.DTO;
 
 import java.util.List;
 
+import edu.co.unicauca.learnmetrics.lm.CapaAccesoDatos.Modelos.RA.TipoRA;
 import edu.co.unicauca.learnmetrics.lm.CapaAccesoDatos.Modelos.Rubrica.RubricaEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -14,6 +15,8 @@ public class ResultadoAprendizajeDTO {
     private int idRA;
     private String descripcionRA;
     private List<RubricaEntity> rubricas;
+    private TipoRA tipoRA;
+    private CompetenciaDTO objCompetencia;
 
     public ResultadoAprendizajeDTO() {
     }

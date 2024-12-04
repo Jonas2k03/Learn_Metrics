@@ -16,4 +16,6 @@ public interface IResultadoAprendizajeService {
 
     public boolean delete(Integer id);
 
+    public void asociarRubrica(Integer idRa, Integer idRubrica);
+
 }

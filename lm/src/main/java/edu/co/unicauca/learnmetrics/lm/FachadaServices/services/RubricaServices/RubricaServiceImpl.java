@@ -1,14 +1,17 @@
 package edu.co.unicauca.learnmetrics.lm.FachadaServices.services.RubricaServices;
 
-import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import edu.co.unicauca.learnmetrics.lm.CapaAccesoDatos.Modelos.RA.ResultadoAprendizajeEntity;
+import edu.co.unicauca.learnmetrics.lm.CapaAccesoDatos.Modelos.Rubrica.CriterioEvaluacionEntity;
 import edu.co.unicauca.learnmetrics.lm.CapaAccesoDatos.Modelos.Rubrica.RubricaEntity;
+import edu.co.unicauca.learnmetrics.lm.CapaAccesoDatos.Repositorios.CriterioEvaluacionRepository;
 import edu.co.unicauca.learnmetrics.lm.CapaAccesoDatos.Repositorios.RubricaRepository;
 import edu.co.unicauca.learnmetrics.lm.CapaControladores.controladorExcepciones.excepcionesPropias.EntidadNoExisteException;
 import edu.co.unicauca.learnmetrics.lm.FachadaServices.DTO.RubricaDTO;
@@ -20,56 +23,84 @@ public class RubricaServiceImpl implements IRubricaService {
     private RubricaRepository servicioAccesoBaseDatos;
 
     @Autowired
-    private ModelMapper modelMapper;
+    private CriterioEvaluacionRepository criterioEvaluacionRepository;
 
-    public RubricaServiceImpl() {
-        // Constructor por defecto necesario para Spring
-    }
+    @Autowired
+    private ModelMapper modelMapper;
 
     @Override
     public List<RubricaDTO> findAll() {
-        List<RubricaEntity> rubricasEntity = this.servicioAccesoBaseDatos.findAll();
-        List<RubricaDTO> rubricaDTO = this.modelMapper.map(rubricasEntity,
-                new TypeToken<List<RubricaDTO>>() {
-                }.getType());
+        List<RubricaEntity> rubricas = servicioAccesoBaseDatos.findAll();
+        List<RubricaDTO> rubricasDTO = this.modelMapper.map(rubricas, new TypeToken<List<RubricaDTO>>() {
+        }.getType());
+        return rubricasDTO;
+    }
+
+    @Override
+    public RubricaDTO findById(Integer id) {
+        RubricaEntity rubrica = servicioAccesoBaseDatos.findById(id).orElse(null);
+        if (rubrica == null) {
+            throw new EntidadNoExisteException("Rubrica no existe");
+        }
+        RubricaDTO rubricaDTO = this.modelMapper.map(rubrica, RubricaDTO.class);
         return rubricaDTO;
     }
 
     @Override
-    public RubricaDTO findById(Long id) {
-        RubricaEntity objRubricaEntity = this.servicioAccesoBaseDatos.findById(id);
-        if (objRubricaEntity == null) {
-            throw new EntidadNoExisteException("Error, la rúbrica no existe");
-        }
-        return this.modelMapper.map(objRubricaEntity, RubricaDTO.class);
+    public RubricaDTO save(RubricaDTO cliente) {
+        RubricaEntity rubricaEntity = this.modelMapper.map(cliente, RubricaEntity.class);
+        RubricaEntity rubricaEntitySave = servicioAccesoBaseDatos.save(rubricaEntity);
+        RubricaDTO rubricaDTO = this.modelMapper.map(rubricaEntitySave, RubricaDTO.class);
+        return rubricaDTO;
     }
 
     @Override
-    public RubricaDTO save(RubricaDTO rubrica) {
-        RubricaEntity rubricaEntity = this.modelMapper.map(rubrica, RubricaEntity.class);
-        rubricaEntity.setFechaCreacion(new Date());
-        rubricaEntity.setFechaModificacion(new Date());
-        RubricaEntity objRubricaEntity = this.servicioAccesoBaseDatos.save(rubricaEntity);
-        return this.modelMapper.map(objRubricaEntity, RubricaDTO.class);
+    public RubricaDTO update(Integer id, RubricaDTO rubrica) {
+        Optional<RubricaEntity> rubricaEntity = servicioAccesoBaseDatos.findById(id);
+
+        if (rubricaEntity.isPresent()) {
+            RubricaEntity rubricaEntityActualizada = rubricaEntity.get();
+            rubricaEntityActualizada.setRubricaNombre(rubrica.getRubricaNombre());
+            rubricaEntityActualizada.setRAS(this.modelMapper.map(rubrica.getRAS(), ResultadoAprendizajeEntity.class));
+            rubricaEntityActualizada.setCriterios(
+                    this.modelMapper.map(rubrica.getCriterios(), new TypeToken<List<CriterioEvaluacionEntity>>() {
+                    }.getType()));
+
+            servicioAccesoBaseDatos.save(rubricaEntityActualizada);
+            return this.modelMapper.map(rubricaEntityActualizada, RubricaDTO.class);
+        } else {
+            throw new EntidadNoExisteException("Rubrica no existe");
+        }
     }
 
     @Override
-    public RubricaDTO update(Long id, RubricaDTO rubrica) {
-        if (!this.servicioAccesoBaseDatos.existeRubrica(id)) {
-            throw new EntidadNoExisteException("Error, la rúbrica a actualizar no existe");
-        }
+    public boolean delete(Integer id) {
+        boolean bandera = false;
+        Optional<RubricaEntity> optional = servicioAccesoBaseDatos.findById(id);
+        RubricaEntity rubrica = optional.get();
 
-        RubricaEntity rubricaEntity = this.modelMapper.map(rubrica, RubricaEntity.class);
-        rubricaEntity.setFechaModificacion(new Date());
-        RubricaEntity rubricaEntityActualizado = this.servicioAccesoBaseDatos.update(id, rubricaEntity);
-        return this.modelMapper.map(rubricaEntityActualizado, RubricaDTO.class);
+        if (rubrica != null) {
+            servicioAccesoBaseDatos.deleteById(id);
+            bandera = true;
+        }
+        return bandera;
     }
 
     @Override
-    public boolean delete(Long id) {
-        if (!this.servicioAccesoBaseDatos.existeRubrica(id)) {
-            throw new EntidadNoExisteException("Error, la rúbrica a eliminar no existe");
+    public void asociarCriterio(Integer idRubrica, Integer idCriterio) {
+        Optional<RubricaEntity> rubricaEntity = servicioAccesoBaseDatos.findById(idRubrica);
+        Optional<CriterioEvaluacionEntity> criterioEntity = criterioEvaluacionRepository.findById(idCriterio);
+
+        if (rubricaEntity.isPresent() && criterioEntity.isPresent()) {
+            RubricaEntity rubrica = rubricaEntity.get();
+            CriterioEvaluacionEntity criterio = criterioEntity.get();
+
+            rubrica.getCriterios().add(criterio);
+            criterio.setRubrica(rubrica);
+            servicioAccesoBaseDatos.save(rubrica);
+        } else {
+            throw new EntidadNoExisteException("Rubrica o criterio no existe");
         }
-        return this.servicioAccesoBaseDatos.delete(id);
     }
+
 }

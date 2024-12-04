@@ -6,7 +6,12 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.ArrayList;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Getter
 @Setter
@@ -23,9 +28,9 @@ public class ResultadoAprendizajeEntity {
     @Column(name = "RA_DESCRIPCION", length = 250, nullable = false)
     private String descripcionRA;
 
-    @ManyToMany
-    @JoinTable(name = "TBL_RA_RUBRICA", joinColumns = @JoinColumn(name = "RA_ID"), inverseJoinColumns = @JoinColumn(name = "RUB_ID"))
-    private List<RubricaEntity> rubricas;
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "RAS")
+    @JsonManagedReference
+    private List<RubricaEntity> rubricas = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)
     @Column(name = "RA_TIPO")
@@ -33,6 +38,7 @@ public class ResultadoAprendizajeEntity {
 
     @ManyToOne
     @JoinColumn(name = "COMP_ID")
+    @JsonBackReference
     private CompetenciaEntity objCompetencia;
 
     public ResultadoAprendizajeEntity() {

@@ -8,11 +8,13 @@ public interface IRubricaService {
 
 	public List<RubricaDTO> findAll();
 
-	public RubricaDTO findById(Long id);
+	public RubricaDTO findById(Integer id);
 
 	public RubricaDTO save(RubricaDTO cliente);
 
-	public RubricaDTO update(Long id, RubricaDTO cliente);
+	public RubricaDTO update(Integer id, RubricaDTO cliente);
 
-	public boolean delete(Long id);
+	public boolean delete(Integer id);
+
+	public void asociarCriterio(Integer idRubrica, Integer idCriterio);
 }

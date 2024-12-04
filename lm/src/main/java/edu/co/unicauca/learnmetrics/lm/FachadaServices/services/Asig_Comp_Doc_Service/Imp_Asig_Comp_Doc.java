@@ -215,4 +215,32 @@ public class Imp_Asig_Comp_Doc implements IAsig_Comp_Doc {
 
         return asi_comp_docDTO;
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Asig_Comp_Doc_DTO> buscarPorPeriodo(Integer idPeriodo) {
+        List<Asig_Comp_Doc_Entity> asi_comp_docEntities = serviccioAccesoBaseDatos.findByPeriodo(idPeriodo);
+        List<Asig_Comp_Doc_DTO> asi_comp_docDTOList = modelMapper.map(asi_comp_docEntities,
+                new TypeToken<List<Asig_Comp_Doc_DTO>>() {
+                }.getType());
+        return asi_comp_docDTOList;
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Asig_Comp_Doc_DTO> buscarPeriodoAsignatura(Integer idAsignatura, Integer idPeriodo) {
+        Optional<AsignaturaEntity> asignatura = asignaturaRepository.findById(idAsignatura);
+
+        if (asignatura.isPresent()) {
+            List<Asig_Comp_Doc_Entity> asi_comp_docEntities = serviccioAccesoBaseDatos
+                    .findByOAsignaturaEntityAndPeriodo(asignatura.get(), idPeriodo);
+            List<Asig_Comp_Doc_DTO> asi_comp_docDTOList = modelMapper.map(asi_comp_docEntities,
+                    new TypeToken<List<Asig_Comp_Doc_DTO>>() {
+                    }.getType());
+            return asi_comp_docDTOList;
+        }
+
+        return null; // O podrías lanzar una excepción si prefieres manejar errores de otra manera
+    }
+
 }

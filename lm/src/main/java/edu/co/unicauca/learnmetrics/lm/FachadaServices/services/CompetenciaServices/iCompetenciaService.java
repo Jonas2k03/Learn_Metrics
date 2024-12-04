@@ -15,4 +15,8 @@ public interface iCompetenciaService {
 
     public CompetenciaDTO updateComp(Integer id, CompetenciaDTO competencia);
 
+    public void asociarRa(Integer id, Integer idRa);
+
+    public void desasociarRa(Integer id, Integer idRa);
+
 }

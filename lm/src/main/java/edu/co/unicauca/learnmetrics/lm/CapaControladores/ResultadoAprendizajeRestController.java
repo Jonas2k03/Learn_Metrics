@@ -28,7 +28,7 @@ public class ResultadoAprendizajeRestController {
     @Autowired
     private IResultadoAprendizajeService resultadoAprendizajeService;
 
-    @GetMapping("/resultadosAprendizaje")
+    @GetMapping("/ra")
     public ResponseEntity<List<ResultadoAprendizajeDTO>> listarResultadosAprendizaje() {
         List<ResultadoAprendizajeDTO> lista = resultadoAprendizajeService.findAll();
         ResponseEntity<List<ResultadoAprendizajeDTO>> objRespuesta = new ResponseEntity<List<ResultadoAprendizajeDTO>>(
@@ -36,7 +36,7 @@ public class ResultadoAprendizajeRestController {
         return objRespuesta;
     }
 
-    @GetMapping("/resultadosAprendizaje/{id}")
+    @GetMapping("/ra/{id}")
     public ResponseEntity<ResultadoAprendizajeDTO> consultarResultadosAprendizaje(@PathVariable Integer id) {
         ResultadoAprendizajeDTO objResultadoAprendizaje = null;
         objResultadoAprendizaje = resultadoAprendizajeService.findById(id);
@@ -46,7 +46,7 @@ public class ResultadoAprendizajeRestController {
         return objRespuesta;
     }
 
-    @PostMapping("/resultadosAprendizaje")
+    @PostMapping("/ra")
     public ResponseEntity<ResultadoAprendizajeDTO> crearResultadoAprendizaje(
             @RequestBody ResultadoAprendizajeDTO resultadoAprendizaje) {
         ResultadoAprendizajeDTO objResultadoAprendizaje = null;
@@ -57,7 +57,7 @@ public class ResultadoAprendizajeRestController {
         return objRespuesta;
     }
 
-    @PutMapping("/resultadosAprendizaje")
+    @PutMapping("/ra")
     public ResponseEntity<ResultadoAprendizajeDTO> actualizarResultadoAprendizaje(
             @RequestBody ResultadoAprendizajeDTO resultadoAprendizaje,
             @RequestParam Integer id) {
@@ -68,11 +68,18 @@ public class ResultadoAprendizajeRestController {
         return objRespuesta;
     }
 
-    @DeleteMapping("/resultadosAprendizaje")
+    @DeleteMapping("/ra")
     public ResponseEntity<Boolean> eliminarResultadoAprendizaje(@RequestParam Integer id) {
         Boolean bandera = resultadoAprendizajeService.delete(id);
         ResponseEntity<Boolean> objRespuesta = new ResponseEntity<Boolean>(bandera, HttpStatus.NO_CONTENT);
         return objRespuesta;
+    }
+
+    @PostMapping("/ra/asociarRubrica/{idRa}/{idRubrica}")
+    public ResponseEntity<ResultadoAprendizajeDTO> asociarRubrica(@PathVariable Integer idRa,
+            @PathVariable Integer idRubrica) {
+        resultadoAprendizajeService.asociarRubrica(idRa, idRubrica);
+        return ResponseEntity.ok().build();
     }
 
 }

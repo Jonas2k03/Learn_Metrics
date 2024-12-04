@@ -2,6 +2,9 @@ package edu.co.unicauca.learnmetrics.lm.CapaAccesoDatos.Modelos.Rubrica;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -23,9 +26,11 @@ public class NivelCriterioEntity {
     @Column(name = "NIVEL_CATEGORIA", nullable = false)
     private enum_categoriaRUB categoriaNivel;
 
-    @Column(name = "NIVEL_NOTA", nullable = false)
-    private Double nota;
+    @Column(name = "NIVEL_DESCRIPCION", nullable = false)
+    private String descripcion;
 
-    @ManyToMany(mappedBy = "nivelesCriterio")
-    private List<CriterioEvaluacionEntity> nivelesCriterio;
+    @ManyToOne
+    @JoinColumn(name = "CRITERIO_ID")
+    @JsonBackReference
+    private CriterioEvaluacionEntity criterio;
 }
