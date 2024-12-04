@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PutMapping;
 
 @RestController
-@RequestMapping("/docentes")
+@RequestMapping("/api")
 @CrossOrigin(origins = "http://localhost:4200", methods = { RequestMethod.GET, RequestMethod.POST, RequestMethod.DELETE,
         RequestMethod.PUT })
 public class DocenteRestController {
@@ -28,20 +28,20 @@ public class DocenteRestController {
     private IDocenteService docenteService;
 
     // Listar docente// http://localhost:8080/docentes
-    @GetMapping()
+    @GetMapping("/docentes")
     public List<DocenteDTO> listarDocentes() {
         return docenteService.findAll();
     }
 
     // Buscar por id// http://localhost:8080/docentes/1
-    @GetMapping("/{doc_id}")
+    @GetMapping("/docentes/{doc_id}")
     public DocenteDTO consulDocente(@PathVariable Integer doc_id) {
         DocenteDTO objDocente = null;
         objDocente = docenteService.findById(doc_id);
         return objDocente;
     }
 
-    @GetMapping("consultarDocentes")
+    @GetMapping("/docentes/consultarDocentes")
     public String consultarDocentesConVariosParametros(@RequestParam String doc_nombres,
             @RequestParam String doc_apellidos) {
         String msg = String.format("buscando un cliente por nombre: %s, apellidos: %s", doc_apellidos, doc_apellidos);
@@ -49,7 +49,7 @@ public class DocenteRestController {
         return msg;
     }
 
-    @PostMapping
+    @PostMapping("/docentes")
     public DocenteDTO crearDocente(@RequestBody DocenteDTO docente) {
         DocenteDTO objDocente = null;
         objDocente = docenteService.save(docente);
@@ -57,7 +57,7 @@ public class DocenteRestController {
     }
 
     // Actualizar docente // http://localhost:8080/docentes/4
-    @PutMapping("/{doc_id}")
+    @PutMapping("/docentes/{doc_id}")
     public DocenteDTO actualizarDocente(@RequestBody DocenteDTO docente, @PathVariable Integer doc_id) {
         DocenteDTO objDocente = null;
         DocenteDTO docenteActual = docenteService.findById(doc_id);

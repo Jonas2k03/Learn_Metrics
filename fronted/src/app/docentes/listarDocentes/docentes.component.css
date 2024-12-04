@@ -1,0 +1,51 @@
+.sidebar {
+    background-color: #f8f9fa;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.profile-section {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.profile-image {
+    width: 80px;
+    height: 80px;
+    background-color: #333;
+    border-radius: 50%;
+    margin: 0 auto 10px;
+}
+
+.coordinator-badge {
+    background-color: #ff6b6b;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.8em;
+}
+
+.nav-pills .nav-link {
+    color: #333;
+    margin: 5px 0;
+}
+
+.nav-pills .nav-link.active {
+    background-color: #4052b5;
+}
+
+.table td, .table th {
+    vertical-align: middle;
+}
+
+.btn-action {
+    background-color: #4052b5;
+    color: white;
+    margin: 5px;
+    min-width: 150px;
+}
+
+.btn-action:hover {
+    background-color: #324090;
+    color: white;
+}
