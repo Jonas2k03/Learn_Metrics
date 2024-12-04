@@ -1,1 +1,93 @@
-<p>form works!</p>
+<div class="row">
+    <!-- Sidebar -->
+    <div class="col-md-2 sidebar">
+        <div class="profile-section">
+            <div class="profile-image"></div>
+            <div>Persona Name</div>
+            <span class="coordinator-badge">Coordinador</span>
+        </div>
+        
+        <div class="nav flex-column nav-pills">
+            <div class="mb-3">Gestionar Secciones</div>
+            <a class="nav-link active" href="#">Docentes</a>
+            <a class="nav-link" href="#">Competencias</a>
+            <a class="nav-link" href="#">Resultados de Aprendizaje</a>
+            <a class="nav-link" href="#">Asignaturas</a>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="col-md-10 p-4">
+        <h1 class="mb-4">Crear Docente</h1>
+        
+        <div class="form-container">
+            <h5 class="mb-4">Rellene los datos</h5>
+            
+            <form (ngSubmit)="crearDocente()" #docenteForm="ngForm">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label required-field">Nombre</label>
+                            <input type="text" id="inputNombresDoc" class="form-control" [(ngModel)]="signup.nombre" name="nombresDoc">
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label required-field">Apellido</label>
+                            <input type="text" id="inputApellidosDoc" class="form-control" [(ngModel)]="signup.apellido" name="apellidosDoc">
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label required-field">Tipo  de identificación</label>
+                            <div class="input-group">
+                                <select id="selectTipoIdDoc" class="form-control form-select" [(ngModel)]="signup.tipoDeIdentificacion" name="tipoId">
+                                    <option selected disabled value="">Seleccione...</option>
+                                    <option *ngFor="let tipoId of tipoDeIdentificacion" [ngValue]="tipoId">{{ tipoId }}</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label required-field">Número identificación</label>
+                            <input type="text" id="inputIdDoc" class="form-control" [(ngModel)]="signup.identificacion" name="idDoc">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label required-field">Tipo de docente</label>
+                            <select id="selectTipoDoc" class="form-control form-select" [(ngModel)]="signup.tipoDeDocente" name="tipoDoc">
+                                <option selected disabled value="">Seleccione...</option>
+                                <option *ngFor="let tipoDoc of tipoDeDocente" [ngValue]="tipoDoc">{{ tipoDoc }}</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label required-field" >Nombre de usuario</label>
+                            <input type="text" class="form-control" [(ngModel)]="signup.username"  name="usuarioDoc" required>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label required-field">Contraseña</label>
+                            <input type="password" class="form-control"  [(ngModel)]="signup.password" name="pswDoc" required>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label required-field">Título académico</label>
+                            <input type="text" class="form-control"  [(ngModel)]="signup.titulo" name="tituloDoc" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label required-field">Correo Electrónico</label>
+                            <input type="email" class="form-control"  [(ngModel)]="signup.email" name="correoDoc" required>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="d-flex justify-content-end mt-4">
+                    <button type="button" class="btn btn-secondary" >Volver</button>
+                    <button type="submit" class="btn btn-action" role="button">Registrar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

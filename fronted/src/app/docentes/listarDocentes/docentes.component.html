@@ -37,7 +37,10 @@
                         <td></td>
                         <td>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="docente-select" checked>
+                                <input class="form-check-input" 
+                                       type="radio" 
+                                       name="docente-select" 
+                                       (change)="setDocenteSeleccionado(docente)">
                             </div>
                         </td>
                     </tr>
@@ -46,7 +49,7 @@
         </div>
         
         <div class="d-flex gap-2">
-            <button class="btn btn-action">Consultar docente</button>
+            <button (click)="consultarDocente(docenteSeleccionado!.doc_id)" >Consultar docente</button>
             <button class="btn btn-action">Actualizar Docente</button>
             <button class="btn btn-primary btn-success" type="button" [routerLink]="['/docente/crearDocentes']">Crear docente</button>
         </div>

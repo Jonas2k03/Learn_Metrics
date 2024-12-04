@@ -1,0 +1,96 @@
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar -->
+        <div class="col-md-2 sidebar">
+            <div class="profile-section">
+                <div class="profile-image"></div>
+                <div>Persona Name</div>
+                <span class="coordinator-badge">Coordinador</span>
+            </div>
+            
+            <div class="nav flex-column nav-pills">
+                <div class="mb-3">Gestionar Secciones</div>
+                <a class="nav-link active" href="#">Docentes</a>
+                <a class="nav-link" href="#">Competencias</a>
+                <a class="nav-link" href="#">Resultados de Aprendizaje</a>
+                <a class="nav-link" href="#">Asignaturas</a>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="col-md-10 p-4">
+            <h1 class="mb-4">Consultar Docente</h1>
+            
+            <div class="form-container">
+                <div class="info-section">
+                    <div class="section-title">Información Personal</div>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <div class="d-flex mb-3">
+                                <span class="info-label">Nombre:</span>
+                                <span class="info-value">{{docente.doc_nombres}}</span>
+                            </div>
+                            <div class="d-flex mb-3">
+                                <span class="info-label">Apellidos:</span>
+                                <span class="info-value">{{docente.doc_apellidos}}</span>
+                            </div>
+                            <div class="d-flex mb-3">
+                                <span class="info-label">Tipo de Identificación:</span>
+                                <span class="info-value">{{docente.TipoDeIdentificacion}}</span>
+                            </div>
+                            <div class="d-flex mb-3">
+                                <span class="info-label">Número de Identificación:</span>
+                                <span class="info-value">{{docente.doc_identificacion}}</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-flex mb-3">
+                                <span class="info-label">Tipo de Docente:</span>
+                                <span class="info-value">{{docente.TipoDeDocente}}</span>
+                            </div>
+                            <div class="d-flex mb-3">
+                                <span class="info-label">Título Académico:</span>
+                                <span class="info-value">{{docente.doc_titulo}}</span>
+                            </div>
+                            <div class="d-flex mb-3">
+                                <span class="info-label">Correo Electrónico:</span>
+                                <span class="info-value">{{docente.doc_correo}}</span>
+                            </div>
+                            <div class="d-flex mb-3">
+                                <span class="info-label">Usuario:</span>
+                                <span class="info-value">{{docente.username}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+              <!--  <div class="info-section">
+                    <div class="section-title">Asignaciones</div>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Asignatura</th>
+                                    <th>Competencia</th>
+                                    <th>Estado</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let asignacion of docente.asignaciones">
+                                    <td>{{asignacion.asignatura}}</td>
+                                    <td>{{asignacion.competencia}}</td>
+                                    <td>{{asignacion.estado}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>-->
+
+                <div class="d-flex justify-content-end mt-4">
+                    <button type="button" class="btn btn-secondary me-2">Volver</button>
+                    <button type="button" class="btn btn-action">Editar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

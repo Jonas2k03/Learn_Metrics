@@ -15,6 +15,7 @@ import { HttpClientModule } from '@angular/common/http';
 })
 export class DocentesComponent {
   docentes: Docente[]=[];
+  docenteSeleccionado: Docente | undefined;
 
   constructor(private objDocenteService: DocenteService, private router: Router){}
 
@@ -26,5 +27,11 @@ export class DocentesComponent {
         this.docentes = docentes;
       }
     );
+  }
+  setDocenteSeleccionado(docente: Docente) {
+    this.docenteSeleccionado = docente;
+}
+  consultarDocente(doc_id: number): void {
+    this.router.navigate(['/docentes/consultar',doc_id]);
   }
 }
